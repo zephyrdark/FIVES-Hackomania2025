@@ -2,10 +2,10 @@ import PropTypes from "prop-types"; // Import PropTypes
 
 const Header = ({ pageName, children }) => {
     return (
-        <header className="bg-orange-600 px-8 pt-4 pb-3 shadow-sm fixed top-0 left-0 right-0 z-50">
-            <div className="flex justify-between items-center">
-                <div className="text-xl font-bold text-white">{pageName}</div>
-            </div>
+        <header className="bg-orange-600 px-8 pt-4 pb-3 shadow-sm fixed
+                            top-0 left-0 right-0 z-50
+                            flex justify-center items-center">
+            <div className="text-xl font-bold text-white">{pageName}</div>
             {children}
         </header>
     );
