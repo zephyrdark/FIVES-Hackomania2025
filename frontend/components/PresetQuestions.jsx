@@ -8,6 +8,7 @@ import { Card, CardContent } from "./ui/card"
 import { Slider } from "./ui/slider"
 import { Input } from "./ui/input"
 import { ChevronLeft, ChevronRight, Send } from "lucide-react"
+import { getQuestions } from "../api"
 
 const initialQuestions = [
   {
@@ -30,6 +31,7 @@ const initialQuestions = [
   },
 ]
 
+
 function DynamicForm() {
   const [questions] = useState(initialQuestions)
   const [answers, setAnswers] = useState({})
@@ -37,6 +39,11 @@ function DynamicForm() {
   const [direction, setDirection] = useState(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [otherInput, setOtherInput] = useState("")
+
+
+  useEffect(() => {
+    getQuestions().then((res) => console.log(res))
+  }, [])
 
   const handleAnswerChange = (questionId, answer) => {
     setAnswers((prev) => ({ ...prev, [questionId]: answer }))
@@ -165,13 +172,12 @@ function DynamicForm() {
         <form onSubmit={handleSubmit} className="space-y-4 flex-grow flex flex-col">
           <div className="relative flex-grow overflow-hidden">
             <div
-              className={`absolute w-full h-full transition-all duration-600 ease-in-out ${
-                isTransitioning
+              className={`absolute w-full h-full transition-all duration-600 ease-in-out ${isTransitioning
                   ? direction === "forward"
                     ? "-translate-x-full opacity-0"
                     : "translate-x-full opacity-0"
                   : "translate-x-0 opacity-100"
-              }`}
+                }`}
             >
               <h2 className="text-xl font-bold mb-2 text-black">{currentQuestion.text}</h2>
               <div className="relative h-1 bg-red-100 rounded-full overflow-hidden mb-4">
@@ -189,7 +195,7 @@ function DynamicForm() {
               onClick={handlePrevious}
               disabled={currentQuestionIndex === 0 || isTransitioning}
               variant="outline"
-               className="w-[80px] h-8 text-xs bg-red-500 text-white hover:bg-red-600"
+              className="w-[80px] h-8 text-xs bg-red-500 text-white hover:bg-red-600"
               style={{ opacity: currentQuestionIndex === 0 ? 0 : 1 }}
             >
               <ChevronLeft className="mr-1 h-3 w-3" /> Previous
@@ -199,13 +205,13 @@ function DynamicForm() {
             </div>
             {!isLastQuestion ? (
               <Button
-              type="button"
-              onClick={handleNext}
-              disabled={!answers[currentQuestionIndex + 1] || isTransitioning}
-              className="w-[80px] h-8 text-xs bg-red-500 text-white hover:bg-red-700"
-            >
-              Next <ChevronRight className="ml-1 h-3 w-3" />
-            </Button>
+                type="button"
+                onClick={handleNext}
+                disabled={!answers[currentQuestionIndex + 1] || isTransitioning}
+                className="w-[80px] h-8 text-xs bg-red-500 text-white hover:bg-red-700"
+              >
+                Next <ChevronRight className="ml-1 h-3 w-3" />
+              </Button>
             ) : (
               <Button
                 type="submit"

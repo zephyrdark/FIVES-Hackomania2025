@@ -5,8 +5,8 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Home from '../pages/Home';
-import Test from "../pages/Test";
 import Layout from "../components/Layout";
+import Smart from "../pages/Smart";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Layout> {/* Wrap all routes inside Layout */}
         <Routes>
           <Route exact path="/recipe" element={<Home />} />
-          <Route exact path="/test" element={<Test />} />
+          <Route exact path="/smart" element={<Smart />} />
         </Routes>
       </Layout>
     </BrowserRouter>

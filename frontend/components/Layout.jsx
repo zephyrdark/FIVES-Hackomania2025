@@ -5,7 +5,7 @@ const Layout = ({ children }) => {
     return (
         <div className="flex flex-col min-h-screen bg-white text-black">
             {/* Content Section */}
-            <main className="flex-grow bg-white">{children}</main>
+            <div className="flex-grow bg-white">{children}</div>
 
             {/* Fixed Bottom Navigation */}
             <MobileNavigation />
