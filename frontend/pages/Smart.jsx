@@ -48,7 +48,7 @@ export default function Chat() {
 
 
             const response = await replyConversation(payload)
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            // await new Promise(resolve => setTimeout(resolve, 1000))
 
 
             // let response3 = { "response_type": "question", "message": "Any specific proteins you like? (Question 2)" }
@@ -110,7 +110,7 @@ export default function Chat() {
             <Header pageName="Smart Eats"></Header>
             <div className="bg-white rounded-lg  flex flex-col mt-5">
                 {/* Chat Messages */}
-                <div className=" overflow-y-auto p-4">
+                <div className=" overflow-y-auto p-4 w-[300px] ">
                     {messages.map((message) => (
                         <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} mb-4`}>
 
@@ -133,7 +133,6 @@ export default function Chat() {
                                 <div className="w-5 h-5 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin ml-3"></div>
                             </div>
                         </div>
-
                     )}
                 </div>
                 {finalRecipe ?
@@ -156,7 +155,7 @@ export default function Chat() {
                     }}>
                         An error has occurred! Retry?
                     </div> :
-                        <div className="border-t p-4">
+                        <div className="fixed inset-x-0 bottom-20 bg-white p-4 shadow-t z-10">
                             <form onSubmit={handleSubmit} className="flex space-x-2">
                                 <input
                                     value={input}
@@ -164,11 +163,16 @@ export default function Chat() {
                                     placeholder="Type your message..."
                                     className="flex-grow p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
                                 />
-                                <button type="submit" disabled={isTyping} className="px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400">
+                                <button
+                                    type="submit"
+                                    disabled={isTyping}
+                                    className="px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400"
+                                >
                                     Send
                                 </button>
                             </form>
                         </div>
+
                 }
             </div>
         </div>
