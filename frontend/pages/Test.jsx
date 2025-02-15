@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import DynamicForm from "../components/PresetQuestions"
 
 export default function Test() {
     const [number, setNumber] = useState(10)
@@ -10,13 +11,12 @@ export default function Test() {
     let exampleArray = { test: 'abc' }
     useNavigate('/recipe')
     return (
-        <div>
-            Home {exampleArray.test}
-            Number is : {number}
-
-            Name: {name}
-            <btn onClick={() => { setNumber((prev) => prev + 1) }}>Add one</btn>
+        <div className="App bg-white min-h-screen flex items-center justify-center p-4">
+        <div className="w-[430px] h-[932px] overflow-hidden">
+            <DynamicForm />
         </div>
+      </div>
+        
 
     )
 }

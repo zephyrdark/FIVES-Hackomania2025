@@ -3,6 +3,7 @@
 
 # Frontend
 frontend/*.iml
+node_modules
 
 # Backend
 backend/.env
