@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Layout> {/* Wrap all routes inside Layout */}
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/recipe" element={<Home />} />
           <Route exact path="/test" element={<Test />} />
         </Routes>
       </Layout>
