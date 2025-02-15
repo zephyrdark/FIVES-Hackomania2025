@@ -5,9 +5,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field
 from typing import Optional, List
 from bson import ObjectId
+import logging
 from dotenv import load_dotenv
 load_dotenv()
-
+logger = logging.getLogger('uvicorn')
 app = FastAPI()
 
 # Configure CORS for frontend integration
@@ -132,7 +133,7 @@ async def health_check():
 
 
 # Pydantic model for Question
-class Option(BaseModel):
+class QuestionOption(BaseModel):
     value: str
     label: str
 
@@ -142,16 +143,8 @@ class Question(BaseModel):
     question_id: str
     text: str
     type: str
-    options: List[Option]
+    options: List[QuestionOption]
 
-
-# @app.get("/api/items", response_model=List[ItemInDB])
-# async def get_items():
-#     items = []
-#     cursor = db.items.find({})
-#     async for document in cursor:
-#         items.append(convert_mongodb_id(document))
-#     return items
 
 # Smart Eats
 @app.get("/api/smart/questions", response_model=List[Question])
@@ -161,6 +154,80 @@ async def get_questions():
     async for document in cursor:
         questions.append(convert_mongodb_id(document))
     return questions
+
+
+class Answer(BaseModel):
+    question_id: str
+    answer: str
+
+
+class AnswersPostRequest(BaseModel):
+    userId: str
+    answers: List[Answer]
+
+
+feedbackQuestion = {
+    "question_id": "q4",
+    "text": "Are you happy with this suggestion?",
+    "type": "single-choice",
+    "options": [
+        {"value": "yes", "label": "Yes"},
+        {"value": "no", "label": "No"},
+    ]
+}
+
+
+class SuggestedRecipe(BaseModel):
+    recipe_id: str
+    title: str
+    cuisine: str
+    prepTime: int
+    spicy: bool
+    thumbnailUrl: str
+
+
+class Option(BaseModel):
+    value: str
+    label: str
+
+
+class FeedbackQuestion(BaseModel):
+    question_id: str
+    text: str
+    type: str
+    options: List[Option]
+
+
+class RecipeSuggestionResponse(BaseModel):
+    suggestedRecipe: SuggestedRecipe
+    feedbackQuestion: FeedbackQuestion
+
+
+# POST endpoint for submitting answers
+@app.post("/api/smart/answers", response_model=RecipeSuggestionResponse)
+async def submit_answers(request: AnswersPostRequest):
+    # TODO: use the user's answers to determine which recipe to fetch.
+    # For the mock, we're always fetching recipe with id "1".
+    recipe = await get_recipe("1")
+    response = {
+        "suggestedRecipe": recipe,
+        "feedbackQuestion": feedbackQuestion
+    }
+    return response
+
+
+# Helper function to fetch a recipe from the database
+async def get_recipe(recipe_id: str):
+    recipe = await db.recipes.find_one({"recipe_id": recipe_id})
+    if recipe is None:
+        raise HTTPException(status_code=404, detail="Recipe not found")
+    return convert_mongodb_id(recipe)
+
+
+# Endpoint to get a recipe (if needed separately)
+@app.get("/api/recipe/{recipe_id}", response_model=SuggestedRecipe)
+async def mock_ai_response_recipe(recipe_id: str):
+    return await get_recipe(recipe_id)
 
 
 if __name__ == "__main__":
