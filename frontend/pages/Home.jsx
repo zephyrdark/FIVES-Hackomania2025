@@ -41,7 +41,9 @@ export default function Home() {
             </div>
 
             {/* SMARTEATS Button */}
-            <div className="bg-orange-500 btn-active shadow-md px-3 mt-2 py-2 text-lg rounded-lg text-white font-medium text-bold" onClick={() => navigate('/smart')}>
+            <div className="bg-orange-500 btn-active shadow-md px-3 mt-2 py-2 text-lg rounded-lg text-white font-medium text-bold"
+                 onClick={() => navigate('/smart')}
+            >
                 I'm feeling Hungry
             </div>
 
