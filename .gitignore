@@ -1,0 +1,10 @@
+# General
+.idea
+
+# Frontend
+frontend/*.iml
+
+# Backend
+backend/.env
+backend/*.iml
+backend/__pycache__
