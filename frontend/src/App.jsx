@@ -3,22 +3,21 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import './App.css'
+import './App.css';
 import Home from '../pages/Home';
+import Test from "../pages/Test";
+import Layout from "../components/Layout";
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Layout> {/* Wrap all routes inside Layout */}
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={<Home />}
-          />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/test" element={<Test />} />
         </Routes>
-      </BrowserRouter>
-    </>
+      </Layout>
+    </BrowserRouter>
   );
 }
 
