@@ -28,7 +28,7 @@ export default function Home() {
             <Header pageName={"Explore Recipes"} >
             </Header>
 
-            <div className="mt-10 flex items-center gap-3">
+            <div className="  flex items-center gap-3">
                 {/* Search Bar */}
                 <div className="flex items-center bg-gray-200 px-3 py-2 rounded-full w-full">
                     <Search size={18} className="text-gray-500" />
