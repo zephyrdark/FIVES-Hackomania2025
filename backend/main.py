@@ -57,7 +57,8 @@ class ItemInDB(ItemBase):
 
 # Helper function to convert MongoDB _id to string
 def convert_mongodb_id(item: dict) -> dict:
-    item["id"] = str(item.pop("_id"))
+    # item["id"] = str(item.pop("_id"))
+    item.pop("_id")
     return item
 
 
@@ -139,7 +140,6 @@ class QuestionOption(BaseModel):
 
 
 class Question(BaseModel):
-    id: str
     question_id: str
     text: str
     type: str
@@ -156,6 +156,20 @@ async def get_questions():
     return questions
 
 
+class AskedQuestions(BaseModel):
+    asked_questions_id: List[str]
+
+
+@app.post("/api/smart/questions/others", response_model=List[Question])
+async def get_questions_other_than(asked_questions: AskedQuestions):
+    questions = []
+    # Use the $nin operator to exclude the provided question IDs and limit the result to 3
+    cursor = db.questions.find({"question_id": {"$nin": asked_questions.asked_questions_id}}).limit(3)
+    async for document in cursor:
+        questions.append(convert_mongodb_id(document))
+    return questions
+
+
 class Answer(BaseModel):
     question_id: str
     answer: str
@@ -167,7 +181,7 @@ class AnswersPostRequest(BaseModel):
 
 
 feedbackQuestion = {
-    "question_id": "q4",
+    "question_id": "q0",
     "text": "Are you happy with this suggestion?",
     "type": "single-choice",
     "options": [
@@ -199,8 +213,8 @@ class FeedbackQuestion(BaseModel):
 
 
 class RecipeSuggestionResponse(BaseModel):
-    suggestedRecipe: SuggestedRecipe
-    feedbackQuestion: FeedbackQuestion
+    suggested_recipe: SuggestedRecipe
+    feedback_question: FeedbackQuestion
 
 
 # POST endpoint for submitting answers
@@ -210,8 +224,8 @@ async def submit_answers(request: AnswersPostRequest):
     # For the mock, we're always fetching recipe with id "1".
     recipe = await get_recipe("1")
     response = {
-        "suggestedRecipe": recipe,
-        "feedbackQuestion": feedbackQuestion
+        "suggested_recipe": recipe,
+        "feedback_question": feedbackQuestion
     }
     return response
 
