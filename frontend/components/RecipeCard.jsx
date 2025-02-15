@@ -5,7 +5,7 @@ const RecipeCard = ({ title, prepTime, thumbnailUrl }) => {
     return (
         <div className="flex items-center space-x-4 p-3 bg-gray-100 my-2 rounded-2xl">
             {/* Image Container */}
-            <div className="w-25 h-25 bg-red-900 rounded-lg overflow-hidden">
+            <div className="w-25 h-20 bg-red-900 rounded-lg overflow-hidden">
                 <img
                     src={thumbnailUrl || "/placeholder.svg"}
                     alt={title}
