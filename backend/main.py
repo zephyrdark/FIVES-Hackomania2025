@@ -60,65 +60,65 @@ def convert_mongodb_id(item: dict) -> dict:
     return item
 
 
-# CRUD Operations
-@app.post("/api/items", response_model=ItemInDB)
-async def create_item(item: ItemCreate):
-    item_dict = item.model_dump()
-    result = await db.items.insert_one(item_dict)
-    created_item = await db.items.find_one({"_id": result.inserted_id})
-    return convert_mongodb_id(created_item)
-
-
-@app.get("/api/items", response_model=List[ItemInDB])
-async def get_items():
-    items = []
-    cursor = db.items.find({})
-    async for document in cursor:
-        items.append(convert_mongodb_id(document))
-    return items
-
-
-@app.get("/api/items/{item_id}", response_model=ItemInDB)
-async def get_item(item_id: str):
-    try:
-        item = await db.items.find_one({"_id": ObjectId(item_id)})
-        if item is None:
-            raise HTTPException(status_code=404, detail="Item not found")
-        return convert_mongodb_id(item)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="Invalid item ID")
-
-
-@app.put("/api/items/{item_id}", response_model=ItemInDB)
-async def update_item(item_id: str, item_update: ItemUpdate):
-    update_data = {k: v for k, v in item_update.model_dump().items() if v is not None}
-
-    if not update_data:
-        raise HTTPException(status_code=400, detail="No valid update data provided")
-
-    try:
-        result = await db.items.update_one(
-            {"_id": ObjectId(item_id)}, {"$set": update_data}
-        )
-
-        if result.modified_count == 0:
-            raise HTTPException(status_code=404, detail="Item not found")
-
-        updated_item = await db.items.find_one({"_id": ObjectId(item_id)})
-        return convert_mongodb_id(updated_item)
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="Invalid item ID")
-
-
-@app.delete("/api/items/{item_id}")
-async def delete_item(item_id: str):
-    try:
-        result = await db.items.delete_one({"_id": ObjectId(item_id)})
-        if result.deleted_count == 0:
-            raise HTTPException(status_code=404, detail="Item not found")
-        return {"message": "Item deleted successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=400, detail="Invalid item ID")
+# # CRUD Operations
+# @app.post("/api/items", response_model=ItemInDB)
+# async def create_item(item: ItemCreate):
+#     item_dict = item.model_dump()
+#     result = await db.items.insert_one(item_dict)
+#     created_item = await db.items.find_one({"_id": result.inserted_id})
+#     return convert_mongodb_id(created_item)
+#
+#
+# @app.get("/api/items", response_model=List[ItemInDB])
+# async def get_items():
+#     items = []
+#     cursor = db.items.find({})
+#     async for document in cursor:
+#         items.append(convert_mongodb_id(document))
+#     return items
+#
+#
+# @app.get("/api/items/{item_id}", response_model=ItemInDB)
+# async def get_item(item_id: str):
+#     try:
+#         item = await db.items.find_one({"_id": ObjectId(item_id)})
+#         if item is None:
+#             raise HTTPException(status_code=404, detail="Item not found")
+#         return convert_mongodb_id(item)
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail="Invalid item ID")
+#
+#
+# @app.put("/api/items/{item_id}", response_model=ItemInDB)
+# async def update_item(item_id: str, item_update: ItemUpdate):
+#     update_data = {k: v for k, v in item_update.model_dump().items() if v is not None}
+#
+#     if not update_data:
+#         raise HTTPException(status_code=400, detail="No valid update data provided")
+#
+#     try:
+#         result = await db.items.update_one(
+#             {"_id": ObjectId(item_id)}, {"$set": update_data}
+#         )
+#
+#         if result.modified_count == 0:
+#             raise HTTPException(status_code=404, detail="Item not found")
+#
+#         updated_item = await db.items.find_one({"_id": ObjectId(item_id)})
+#         return convert_mongodb_id(updated_item)
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail="Invalid item ID")
+#
+#
+# @app.delete("/api/items/{item_id}")
+# async def delete_item(item_id: str):
+#     try:
+#         result = await db.items.delete_one({"_id": ObjectId(item_id)})
+#         if result.deleted_count == 0:
+#             raise HTTPException(status_code=404, detail="Item not found")
+#         return {"message": "Item deleted successfully"}
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail="Invalid item ID")
 
 
 @app.get("/")
@@ -131,9 +131,36 @@ async def health_check():
     return {"status": "healthy"}
 
 
-@app.get("/api/greeting")
-async def greeting():
-    return {"message": "Hello from FastAPI!"}
+# Pydantic model for Question
+class Option(BaseModel):
+    value: str
+    label: str
+
+
+class Question(BaseModel):
+    id: str
+    question_id: str
+    text: str
+    type: str
+    options: List[Option]
+
+
+# @app.get("/api/items", response_model=List[ItemInDB])
+# async def get_items():
+#     items = []
+#     cursor = db.items.find({})
+#     async for document in cursor:
+#         items.append(convert_mongodb_id(document))
+#     return items
+
+# Smart Eats
+@app.get("/api/smart/questions", response_model=List[Question])
+async def get_questions():
+    questions = []
+    cursor = db.questions.find({})
+    async for document in cursor:
+        questions.append(convert_mongodb_id(document))
+    return questions
 
 
 if __name__ == "__main__":
