@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"; // Use React Router for navigation
 
 const MobileNavigation = () => {
     return (
-        <nav>
-            <div>
+        <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-3 shadow-md">
+            <div className="flex justify-around items-center">
                 <NavItem to="/cookbook" icon={<Book size={24} />} label="Cookbook" />
                 <NavItem to="/recipe" icon={<FileText size={24} />} label="Recipe" />
                 <NavItem to="/profile" icon={<User size={24} />} label="Profile" />
