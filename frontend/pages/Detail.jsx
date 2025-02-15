@@ -34,12 +34,10 @@ export default function Detail() {
                 {recipe ? (
                     <RecipeDetails
                         recipe={recipe}
-                        modifyFunction={() => {}}
                     />
                 ) : (
                     <RecipeDetails
                         recipe={mockRecipe}
-                        modifyFunction={() => {}}
                     />
                 )}
             </div>
