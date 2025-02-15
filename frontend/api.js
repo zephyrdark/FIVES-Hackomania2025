@@ -35,9 +35,67 @@ export const getQuestions = () => {
 export const answerQuestions = () => {
   return new Promise((resolve, reject) => {
     try {
-      backendAxios.get(`/api/smart/answers`).then((res) => {
+      backendAxios.post(`/api/smart/answers`).then((res) => {
         resolve(res.data);
       });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const startConversation = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      console.log("running2");
+      backendAxios
+        .post(`/conversation/start`)
+        .then(() => {
+          resolve();
+        })
+        .catch((error) => {
+          console.error(error);
+
+          reject(error);
+        });
+    } catch (error) {
+      console.log("rejecting");
+      reject(error);
+    }
+  });
+};
+
+export const replyConversation = (payload) => {
+  return new Promise((resolve, reject) => {
+    try {
+      backendAxios
+        .post(`/conversation`, payload)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+
+          reject(error);
+        });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const adjustRecipe = (payload) => {
+  return new Promise((resolve, reject) => {
+    try {
+      backendAxios
+        .post(`/adjust`, payload)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
     } catch (error) {
       reject(error);
     }
