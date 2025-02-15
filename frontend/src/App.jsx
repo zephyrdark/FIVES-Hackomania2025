@@ -7,6 +7,7 @@ import './App.css';
 import Home from '../pages/Home';
 import Layout from "../components/Layout";
 import Smart from "../pages/Smart";
+import Detail from "../pages/Detail.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route exact path="/recipe" element={<Home />} />
           <Route exact path="/smart" element={<Smart />} />
+          <Route exact path="/detail" element={<Detail />} />
         </Routes>
       </Layout>
     </BrowserRouter>
