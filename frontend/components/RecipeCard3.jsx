@@ -25,7 +25,7 @@ const RecipeCard = ({ title, prepTime, thumbnailUrl, recipe }) => {
                 {/* Recipe Image */}
                 <div className="w-full h-[200px] overflow-hidden rounded-lg mt-4">
                     <img
-                        src={thumbnailUrl || "https://h7.alamy.com/comp/HT5DCX/man-with-gloves-working-with-tomato-in-genetic-engineering-laboratory-HT5DCX.jpg"}
+                        src={thumbnailUrl || "https://cdn-icons-png.flaticon.com/512/1377/1377194.png"}
                         alt={title}
                         className="w-full h-full object-cover"
                     />

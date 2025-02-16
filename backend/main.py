@@ -94,13 +94,13 @@ Rules:
 {
   "recipe": {
     "name": "Pancakes",
-    "servings": 4,
+    "servings": "4",
     "ingredients": [
-      {"name": "Flour", "quantity": 2, "unit": "cups"},
-      {"name": "Milk", "quantity": 1.5, "unit": "cups"},
-      {"name": "Eggs", "quantity": 2, "unit": "pieces"},
-      {"name": "Baking Powder", "quantity": 1, "unit": "tablespoon"},
-      {"name": "Salt", "quantity": 0.5, "unit": "teaspoon"}
+      {"name": "Flour", "quantity": "2", "unit": "cups"},
+      {"name": "Milk", "quantity": "1.5", "unit": "cups"},
+      {"name": "Eggs", "quantity": "2", "unit": "pieces"},
+      {"name": "Baking Powder", "quantity": "1", "unit": "tablespoon"},
+      {"name": "Salt", "quantity": "0.5", "unit": "teaspoon"}
     ],
     "instructions": [
       {"step": 1, "description": "In a large bowl, mix the flour, baking powder, and salt."},
