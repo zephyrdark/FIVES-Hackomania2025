@@ -8,6 +8,7 @@ CulinaryQuest is a web-application, designed to leverage AI to make Kitchen Copi
 
 
 ![Screenshots](https://i.ibb.co/gbWB0pV5/screens.png)
+
 Video Demo: https://embed.tube/embed-code-generator/streamable
 
 
