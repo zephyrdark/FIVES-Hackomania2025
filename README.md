@@ -6,10 +6,9 @@
 
 CulinaryQuest is a web-application, designed to leverage AI to make Kitchen Copilot a seamless and intelligent assistant that helps busy adults effortlessly discover, customize, and prepare healthy meals as part of their daily routine.
 
-### Click the Image below to watch our demo!
 
 ![Screenshots](https://i.ibb.co/gbWB0pV5/screens.png)
-https://embed.tube/embed-code-generator/streamable
+Video Demo: https://embed.tube/embed-code-generator/streamable
 
 
 ## Tech Stack
