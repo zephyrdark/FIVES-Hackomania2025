@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const RecipeCard = ({ title, prepTime, thumbnailUrl, recipe }) => {
     const navigate = useNavigate()
+    console.log("RecipeCard recipe", recipe)
     return (
         <div onClick={() => navigate(`/detail
         `, { state: { recipe: recipe } })}>

@@ -24,7 +24,7 @@ export default function Home() {
     }]
 
     return (
-        <div className="min-h-screen px-3">
+        <div className="min-h-screen px-3 py-10">
             <Header pageName={"Explore Recipes"} >
             </Header>
 
@@ -57,7 +57,7 @@ export default function Home() {
                 />
             ))}
             <div className="flex justify-center mt-4">
-                <button className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-black font-small px-5 py-2 rounded-full transition">
+                <button className="text-white bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-black font-small px-5 py-2 rounded-full transition">
                     SHOW MORE
                 </button>
             </div>

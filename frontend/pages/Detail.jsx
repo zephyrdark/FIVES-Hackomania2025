@@ -1,8 +1,11 @@
 import RecipeDetails from "../components/RecipeDetails";
 import Header from "../components/Header.jsx";
-
+import { useLocation } from "react-router-dom";
+import { useState } from "react";
 export default function Detail() {
-    const recipe = location.state?.recipe; // Optional chaining in case state is undefined
+    const location = useLocation();
+    const [recipe, setRecipe] = useState(location.state?.recipe); // Optional chaining in case state is undefined
+
 
     const mockRecipe = {
         name: "Spaghetti Carbonara",
@@ -34,10 +37,12 @@ export default function Detail() {
                 {recipe ? (
                     <RecipeDetails
                         recipe={recipe}
+                        setRecipe={setRecipe}
                     />
                 ) : (
                     <RecipeDetails
                         recipe={mockRecipe}
+                        setRecipe={setRecipe}
                     />
                 )}
             </div>

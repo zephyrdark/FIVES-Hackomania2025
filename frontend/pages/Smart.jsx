@@ -59,7 +59,14 @@ export default function Chat() {
 
             if (response.response_type === 'recipe') {
                 //TODO: GET IMAGE HERE?
-                setFinalRecipe(response.recipe_json.recipe)
+                console.log(response)
+                console.log(response.recipe_json.recipe)
+                if (response.recipe_json.recipe != null) 
+                {
+                    setFinalRecipe(response.recipe_json.recipe)
+                } else {
+                    setFinalRecipe(null)
+                }
             }
             setMessages((prev) => [...prev, newMessage]);
             setIsTyping(false);
@@ -110,7 +117,7 @@ export default function Chat() {
             <Header pageName="Smart Eats"></Header>
             <div className="bg-white rounded-lg  flex flex-col mt-5">
                 {/* Chat Messages */}
-                <div className=" overflow-y-auto p-4 w-[300px] ">
+                <div className=" overflow-y-scroll p-4 w-[300px] mb-26">
                     {messages.map((message) => (
                         <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"} mb-4`}>
 
