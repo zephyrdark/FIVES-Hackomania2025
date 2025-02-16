@@ -31,7 +31,7 @@ const RecipeCard = ({ title, prepTime, thumbnailUrl, onAddToCookbook, onClose, o
                 {/* Recipe Image */}
                 <div className="w-full h-[200px] overflow-hidden rounded-lg mt-4">
                     <img
-                        src={thumbnailUrl || "/placeholder.svg"}
+                        src={thumbnailUrl || "https://cdn-icons-png.flaticon.com/512/1377/1377194.png"}
                         alt={title}
                         className="w-full h-full object-cover"
                     />

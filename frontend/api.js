@@ -49,9 +49,10 @@ export const startConversation = () => {
     try {
       console.log("running2");
       backendAxios
-        .post(`/conversation/start`)
-        .then(() => {
-          resolve();
+        .get(`/conversation/start`)
+        .then((response) => {
+          console.log(response);
+          resolve(response.data);
         })
         .catch((error) => {
           console.error(error);
@@ -90,6 +91,7 @@ export const adjustRecipe = (payload) => {
       backendAxios
         .post(`/adjust`, payload)
         .then((response) => {
+          console.log("adjustRecipe response.data", response.data);
           resolve(response.data);
         })
         .catch((error) => {

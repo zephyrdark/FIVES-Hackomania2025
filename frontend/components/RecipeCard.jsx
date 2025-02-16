@@ -7,7 +7,7 @@ const RecipeCard = ({ title, prepTime, thumbnailUrl }) => {
             {/* Image Container */}
             <div className="w-25 h-20 bg-red-900 rounded-lg overflow-hidden">
                 <img
-                    src={thumbnailUrl || "/placeholder.svg"}
+                    src={thumbnailUrl || "https://cdn-icons-png.flaticon.com/512/1377/1377194.png"}
                     alt={title}
                     className="w-full h-full object-cover"
                 />
